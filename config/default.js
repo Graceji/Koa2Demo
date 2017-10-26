@@ -1,3 +1,15 @@
 const config = {
-  port: 3306,
+  // 启动端口
+  port: 8000,
+
+  // 数据库配置
+  database: {
+    DATABASE: 'koa_demo',
+    PORT: 3306,
+    USERNAME: 'koaDemo',
+    PASSWORD: 'graceji',
+    HOST: 'localhost',
+  }
 }
+
+module.exports = config;

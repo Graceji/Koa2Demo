@@ -3,6 +3,7 @@ const logger = require('koa-logger');
 const views = require('koa-views')
 const serve = require('koa-static');
 const routers = require('./routes/index');
+const config = require('./config/default');
 
 const app = new Koa();
 app.use(logger());
@@ -20,4 +21,4 @@ app.use(routers.routes());
 app.use(routers.allowedMethods());
 
 // 监听端口
-app.listen(process.env.PORT || '8000', () => console.log(`服务器监听在${process.env.PORT || 8000}端口`));
+app.listen(process.env.PORT || config.port, () => console.log(`服务器监听在${process.env.PORT || config.port}端口`));
