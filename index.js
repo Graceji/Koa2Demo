@@ -17,7 +17,7 @@ app.use(serve(__dirname + '/public/'));
 
 // 设置路由
 app.use(routers.routes());
-// app.use(routers.allowedMethods());
+app.use(routers.allowedMethods());
 
 // 监听端口
 app.listen(process.env.PORT || '8000', () => console.log(`服务器监听在${process.env.PORT || 8000}端口`));
