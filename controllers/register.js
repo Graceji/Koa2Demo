@@ -10,7 +10,7 @@ const renderSingnup = async (ctx, next) => {
 const signup = async (ctx, next) => {
   // ctx.request.body 的格式为：{ email: '', userName: '', password: '', repeatPassword: '' }
   const user = {
-    email: ctx.request.body.email,
+    // email: ctx.request.body.email,
     userName: ctx.request.body.userName,
     password: ctx.request.body.password,
     repeatPassword: ctx.request.body.repeatPassword

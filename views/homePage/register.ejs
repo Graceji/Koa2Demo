@@ -7,12 +7,12 @@
   </div>
   <div class="modal-body">
     <form class="form-horizontal js-register-form">
-      <div class="form-group emailLabel">
+      <!-- <div class="form-group emailLabel">
         <label for="email" class="col-sm-2 control-label">邮箱</label>
         <div class="col-sm-10">
           <input type="email" class="form-control" id="email" placeholder="请输入邮箱" name="email">
         </div>
-      </div>
+      </div> -->
       <div class="form-group userNameLabel">
         <label for="userName" class="col-sm-2 control-label">用户名</label>
         <div class="col-sm-10">
@@ -57,14 +57,15 @@
 
     // 请求前校验
     const checkForm = () => {
-      const email = $('#email').val();
+      // const email = $('#email').val();
       const userName = $('#userName').val();
       const password = $('#password').val();
       const repeatPass = $('#confirmPassword').val();
-      if (!email) {
-        $('.emailLabel').addClass(' has-error');
-        $('.text-danger').show().text('请输入正确的邮箱名');
-      } else if (!userName) {
+      // if (!email) {
+      //   $('.emailLabel').addClass(' has-error');
+      //   $('.text-danger').show().text('请输入正确的邮箱名');
+      // } 
+      if (!userName) {
         $('.userNameLabel').addClass(' has-error');
         $('.text-danger').show().text('请输入正确的用户名');
       } else if (!password) {

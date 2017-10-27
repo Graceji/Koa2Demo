@@ -9,10 +9,9 @@ const register = require('../controllers/register');
 
 // 注册：get方式得到'/register'页面， post方式实现注册
 router
-  .get('/login', login)
+  .get('/login', login.renderSignin)
   .get('/register', register.renderSingnup)
-
-router.post('/register', register.signup)
-
+  .post('/register', register.signup)
+  .post('/login', login.signin)
 
 module.exports = router;

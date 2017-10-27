@@ -6,17 +6,17 @@
     <h4 class="modal-title" id="myModalLabel">登录</h4>
   </div>
   <div class="modal-body">
-    <form class="form-horizontal">
-      <div class="form-group">
-        <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+    <form class="form-horizontal js-login-form">
+      <div class="form-group userNameLabel">
+        <label for="inputEmail3" class="col-sm-2 control-label">用户名</label>
         <div class="col-sm-10">
-          <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+          <input type="text" class="form-control" id="userName" placeholder="请输入用户名" name="userName">
         </div>
       </div>
-      <div class="form-group">
-        <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+      <div class="form-group passLabel">
+        <label for="inputPassword3" class="col-sm-2 control-label">密码</label>
         <div class="col-sm-10">
-          <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+          <input type="password" class="form-control" id="password" placeholder="请输入密码" name="password">
         </div>
       </div>
       <div class="form-group">
@@ -28,10 +28,48 @@
           </div>
         </div>
       </div>
+      <div class="form-group">
+        <dic class="col-sm-offset-2 col-sm-10">
+          <div>
+            <p class="text-danger" style="display: none"></p>
+          </div>
+        </dic>
+      </div>
     </form>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-    <button type="button" class="btn btn-primary">登录</button>
+    <button type="button" class="btn btn-primary js-login">登录</button>
   </div>
+  <script>
+    $('.js-login').on('click', () => {
+      const userName = $('#userName').val();
+      const password = $('#password').val();
+      if (!userName) {
+        $('.userNameLabel').addClass(' has-error');
+        $('.text-danger').show().text('请输入正确的用户名');
+      } else if (!password) {
+        $('.passLabel').addClass(' has-error');
+        $('.text-danger').show().text('请输入正确的登录密码');
+      } else {
+        $.ajax({
+          url: '/user/login',
+          data: $('.js-login-form').serialize(),
+          type: 'POST',
+          cache: false,
+          dataType: 'json',
+        })
+          .then(msg => {
+            switch (msg.type) {
+              case 0:
+              window.location.href = '/';
+                break;
+              case 1:
+                $('.text-danger').show().text('用户名或密码错误！');
+            }
+          })
+          .catch(err => console.log(err));
+      }
+    })
+  </script>
   <% include ../public/footer.ejs %>
