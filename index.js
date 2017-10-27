@@ -2,6 +2,7 @@ const Koa = require('Koa');
 const logger = require('koa-logger');
 const views = require('koa-views')
 const serve = require('koa-static');
+const bodyparser = require('koa-bodyparser')
 const routers = require('./routes/index');
 const config = require('./config/default');
 
@@ -15,6 +16,11 @@ app.use(views(__dirname + '/views', {
 
 // 设置静态文件夹
 app.use(serve(__dirname + '/public/'));
+
+// A body parser for koa, base on co-body. support json, form and text type body.
+// the parsed body will store in ctx.request.body 
+// if nothing was parsed, body will be an empty object {} 
+app.use(bodyparser());
 
 // 设置路由
 app.use(routers.routes());
