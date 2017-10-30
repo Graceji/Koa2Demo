@@ -3,7 +3,7 @@ const md5 = require('md5');
 
 const renderSingnup = async (ctx, next) => {
   await ctx.render('./homePage/register', {
-
+    session: ctx.session
   })
 }
 

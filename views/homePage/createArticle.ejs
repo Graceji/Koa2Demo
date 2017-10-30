@@ -1,0 +1,57 @@
+<% include ../public/header.ejs %>
+  <div class="panel panel-info" style="width: 800px; margin: 0 auto;">
+    <div class="panel-heading">发表文章</div>
+    <div class="panel-body">
+      <form class="js-addForm">
+        <div class="form-group">
+          <label for="articleTitle">标题</label>
+          <input type="text" class="form-control" id="articleTitle" placeholder="请输入标题" name="title">
+        </div>
+        <div class="form-group">
+          <label for="articleContent">内容</label>
+          <textarea
+            rows="10"
+            cols="20"
+            type="text"
+            class="form-control"
+            id="articleContent"
+            placeholder="请输入文章内容"
+            name="content"
+          ></textarea>
+        </div>
+        <button type="button" class="btn btn-default pull-right">取消</button>
+        <button type="button" class="btn btn-info pull-right js-create" style="margin-right: 20px;">发表</button>
+      </form>
+    </div>
+  </div>
+  <div class="alert alert-danger js-warn" style="width: 800px; margin: 20px auto; display: none;" role="alert"></div>
+  <script>
+    const $warn = $('.js-warn');
+    $('.js-create').on('click', () => {
+      const title = $('#articleTitle').val();
+      const content = $('#articleContent').val();
+      if (!title) {
+        $warn.text('请输入文章的标题').show();
+      } else if (!content) {
+        $warn.text('请输入文章的内容').show();
+      } else {
+        $.ajax({
+          url: '/posts/addArticle',
+          type: 'POST',
+          data: $('.js-addForm').serialize()
+        })
+        .then((msg) => {
+          console.log(msg);
+          if (msg) {
+            $warn.text('发表文章成功').show();
+          } else {
+            $warn.text('发表文章失败').show();
+          }
+        })
+        .catch((err) => {
+          $warn.text('发表文章失败').show();
+        })
+      }
+    })
+  </script>
+  <% include ../public/footer.ejs %>

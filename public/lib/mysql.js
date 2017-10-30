@@ -9,6 +9,19 @@ const users =
  PRIMARY KEY ( id )
 );`
 
+let posts =
+  `create table if not exists posts(
+ id INT NOT NULL AUTO_INCREMENT,
+ name VARCHAR(100) NOT NULL,
+ title VARCHAR(40) NOT NULL,
+ content  VARCHAR(40) NOT NULL,
+ uid  VARCHAR(40) NOT NULL,
+ moment  VARCHAR(40) NOT NULL,
+ comments  VARCHAR(40) NOT NULL DEFAULT '0',
+ pv  VARCHAR(40) NOT NULL DEFAULT '0',
+ PRIMARY KEY ( id )
+);`
+
 // 建立数据库的连接池
 const pool = mysql.createPool({
   host: config.database.HOST,
@@ -40,11 +53,12 @@ const createTable = (sql) => {
 
 // 建表
 createTable(users);
+createTable(posts);
 
 // 注册用户
-const insertData = ( value ) => {
+const insertData = (value) => {
   let _sql = "insert into users(name,pass) values(?,?);"
-  return query( _sql, value );
+  return query(_sql, value);
 }
 
 // 通过名字查找用户
@@ -56,10 +70,17 @@ const findDataByName = (name) => {
   return query(_sql);
 }
 
+// 发表文章
+let insertPost = (content) => {
+  let _sql = "insert into posts(name,title,content,uid,momemnt) values(?,?,?,?,?);"
+  return query(_sql, content);
+}
+
 
 module.exports = {
   query,
   createTable,
   insertData,
   findDataByName,
+  insertPost,
 }

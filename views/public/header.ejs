@@ -12,18 +12,45 @@
 <body>
   <div class="container-fluid">
     <div class="row">
-      <nav class="navbar navbar-default">
-        <div class="container-fluid">
+      <nav class="navbar navbar-inverse">
+        <div class="container">
           <div class="navbar-header">
-            <p class="navbar-text">Brand</p>
-
-            <a class="btn btn-primary" href="/user/login" role="button">登录</a>
-            <a class="btn btn-default" href="/user/register" role="button">注册</a>
-
+            <% if (!session.user) { %>
+              <p class="navbar-text" style="font-size: 20px;">Hello, Who are you?</p>
+            <% } else { %>
+              <p class="navbar-text" style="font-size: 20px;">Hello, <%= session.user%></p>
+            <% } %>
           </div>
+          <% if (session.user) { %>
+            <div class="navbar-right">
+              <a class="btn btn-success navbar-btn js-post" style="margin-right: 30px;" href="/posts/createArticle">发表文章</a>
+              <button class="btn btn-default navbar-btn js-signout">注销</button>
+            </div>
+            <% } else { %>
+              <div class="navbar-right">
+                <a class="btn btn-default navbar-btn" href="/user/register" role="button">注册</a>
+                <a class="btn btn-success navbar-btn" href="/user/login" role="button">登录</a>
+              </div>
+              <% } %>
         </div>
       </nav>
     </div>
   </div>
   <script src="/lib/jquery.min.js"></script>
   <script src="/lib/Bootstrap.min.js"></script>
+  <script>
+    // 注销
+    $('.js-signout').on('click', () => {
+      $.ajax({
+        url: '/user/signout',
+        type: 'GET',
+        cache: false,
+        // dataType: 'json',
+      })
+        .then((msg) => {
+          if (msg) {
+            window.location.href = '/';
+          }
+        })
+    });
+  </script>

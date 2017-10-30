@@ -3,8 +3,9 @@ const md5 = require('md5');
 
 // 渲染登录页面
 const renderSignin = async (ctx) => {
+  console.log(ctx.session);
   await ctx.render('./homePage/login', {
-    
+    session: ctx.session
   });
 }
 
@@ -22,6 +23,8 @@ const signin = async (ctx, next) => {
       ctx.body = {
         type: 0
       };
+      ctx.session.user = result[0].name;
+      ctx.session.id = result[0].id;
     } else {
       ctx.body = {
         type: 1 // 用户名或密码错误

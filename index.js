@@ -5,8 +5,25 @@ const serve = require('koa-static');
 const bodyparser = require('koa-bodyparser')
 const routers = require('./routes/index');
 const config = require('./config/default');
+const session = require('koa-session-minimal');
+const MySqlStore = require('koa-mysql-session');
+
+const sessionMysqlConfig = {
+  user: config.database.USERNAME,
+  password: config.database.PASSWORD,
+  database: config.database.DATABASE,
+  host: config.database.HOST,
+};
 
 const app = new Koa();
+
+// 配着session中间件
+app.use(session({
+  key: 'USER_SID',
+  store: new MySqlStore(sessionMysqlConfig)
+}));
+
+// 日志
 app.use(logger());
 
 // 设置渲染引擎

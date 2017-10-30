@@ -4,6 +4,6 @@ module.exports = async (ctx) => {
   };
 
   await ctx.render('./homePage/index', {
-    title: 'koa2'
+    session: ctx.session
   })
 }
