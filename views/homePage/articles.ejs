@@ -1,6 +1,14 @@
 <% include ../public/header.ejs %>
-  <ul class="posts" style="width: 80%; margin: 0 auto;">
-    <% posts.forEach((post) => { %>
+  <script>
+    // $('.js-delete').on('clcik', () => {
+    //   console.log()
+    // })
+    const deletePost = () => {
+      console.log('di');
+    }
+  </script>
+  <ul class="posts js-deleteWrap" style="width: 80%; margin: 0 auto;">
+    <% posts.forEach((post, index) => { %>
       <li class="list-group-item list-group-item-success">
         <div style="margin-bottom: 20px;">
           <span>
@@ -11,8 +19,8 @@
             <%= post.moment %>
           </span>
           <% if (session.user === post.name) { %>
-            <button class="btn btn-warning pull-right">删除</button>
-          <% } %>
+            <button class="btn btn-warning pull-right js-delete">删除</button>
+            <% } %>
         </div>
         <div class="panel panel-default">
           <div class="panel-heading">
