@@ -21,13 +21,33 @@ const addArticle = async (ctx) => {
     .then(() => {
       ctx.body = true;
     })
-    .catch(() => {
+    .catch((error) => {
+      console.log('error', error);
       ctx.body = false;
     })
 }
 
+// 显示所有的文章
+const displayPosts = async (ctx) => {
+  let posts;
+  await userModel.findAllPosts()
+    .then((res) => {
+      posts = JSON.parse(JSON.stringify(res))
+      console.log(posts);
+
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  await ctx.render('./homePage/articles', {
+    session: ctx.session,
+    posts,
+  })
+}
+
 // 注册：get方式得到'/register'页面， post方式实现注册
 router
+  .get('/', displayPosts)
   .get('/createArticle', createArticle)
   .post('/addArticle', addArticle)
 

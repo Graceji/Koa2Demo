@@ -1,0 +1,28 @@
+<% include ../public/header.ejs %>
+  <ul class="posts" style="width: 80%; margin: 0 auto;">
+    <% posts.forEach((post) => { %>
+      <li class="list-group-item list-group-item-success">
+        <div style="margin-bottom: 20px;">
+          <span>
+            <%= post.name %>
+          </span>
+          <span>发表于</span>
+          <span>
+            <%= post.moment %>
+          </span>
+          <% if (session.user === post.name) { %>
+            <button class="btn btn-warning pull-right">删除</button>
+          <% } %>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <%= post.title %>
+          </div>
+          <div class="panel-body">
+            <%= post.content %>
+          </div>
+        </div>
+      </li>
+      <% }) %>
+  </ul>
+  <% include ../public/footer.ejs %>

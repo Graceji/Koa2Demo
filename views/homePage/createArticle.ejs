@@ -44,6 +44,9 @@
           console.log(msg);
           if (msg) {
             $warn.text('发表文章成功').show();
+            setTimeout(() => {
+              window.location.href = '/posts';
+            }, 1000);
           } else {
             $warn.text('发表文章失败').show();
           }

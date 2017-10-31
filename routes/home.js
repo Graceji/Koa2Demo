@@ -6,4 +6,7 @@ const router = new Router();
 const home = require('../controllers/home');
 
 module.exports = router
-  .get('/', home)
+  .get('/', (ctx) => {
+    // 转到所有文章页
+    ctx.redirect('/posts');
+  })

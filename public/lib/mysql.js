@@ -14,7 +14,7 @@ let posts =
  id INT NOT NULL AUTO_INCREMENT,
  name VARCHAR(100) NOT NULL,
  title VARCHAR(40) NOT NULL,
- content  VARCHAR(40) NOT NULL,
+ content  VARCHAR(500) NOT NULL,
  uid  VARCHAR(40) NOT NULL,
  moment  VARCHAR(40) NOT NULL,
  comments  VARCHAR(40) NOT NULL DEFAULT '0',
@@ -71,11 +71,17 @@ const findDataByName = (name) => {
 }
 
 // 发表文章
-let insertPost = (content) => {
-  let _sql = "insert into posts(name,title,content,uid,momemnt) values(?,?,?,?,?);"
+const insertPost = (content) => {
+  console.log('content', content);
+  let _sql = "insert into posts(name,title,content,uid,moment) values(?,?,?,?,?);"
   return query(_sql, content);
 }
 
+// 查找所有文章
+const findAllPosts = () => {
+  const _sql = "select * from posts";
+  return query(_sql)
+}
 
 module.exports = {
   query,
@@ -83,4 +89,5 @@ module.exports = {
   insertData,
   findDataByName,
   insertPost,
+  findAllPosts,
 }
